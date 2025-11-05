@@ -1,2 +1,3 @@
-// Simple JS script (you’ll use this to test linting later)
-console.log("Welcome to my cute site!");
+// script.js
+const foo = 42    // <-- Missing semicolon triggers ESLint error
+console.log(foo)
