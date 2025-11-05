@@ -54,6 +54,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true  # Ensures first deploy works if gh-pages branch doesn't exist
           exclude_assets: |
             **/node_modules/**
             **/.github/**
