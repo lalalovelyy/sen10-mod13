@@ -1,2 +1,2 @@
-// Simple test script for linting
-console.log("Welcome to the ugliest UI showcase") // missing semicolon on purpose
+// Simple JS script (you’ll use this to test linting later)
+console.log("Welcome to my cute site!")
