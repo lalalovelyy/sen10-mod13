@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:  # <-- Grant workflow read/write permissions
+  contents: write
+
 jobs:
   lint:
     name: Run ESLint
@@ -40,8 +43,17 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: mkdir -p dist && cp -r *.html *.css *.js dist/
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Build static site
+        run: |
+          mkdir -p dist
+          find . -maxdepth 1 -type f \( -name "*.html" -o -name "*.css" -o -name "*.js" \) -exec cp {} dist/ \;
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
+          force_orphan: true      # Needed if gh-pages doesn't exist yet
+          exclude_assets: |
+            **/node_modules/**
+            **/.github/**
+            **/tests/**
